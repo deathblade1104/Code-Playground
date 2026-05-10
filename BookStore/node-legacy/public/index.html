@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <p>Background Task Page for Admin !</p>
+    <h3 id="conn"> Server is disconnected</h3>
+    <br>
+    Output area	&#10549; 
+    <br>
+    <div id="output">
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var conn = document.getElementById('conn')
+        let socket = io();
+        window.onload = socket.on('connect', () => {
+            conn.innerHTML = "Server has been Connected!";
+
+            // alert("Server has been connected!");
+        });
+
+        var output = document.getElementById('output');
+
+        //listen for event
+        window.onload = socket.on('chat', (data) => {
+            var today = new Date();
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            output.innerHTML = "<p>" + "Task for => DateTime: " + date + " " + time + "</p>";
+            // console.log(data.books);
+            output.innerHTML += "<h4>" + "Sl.No | Title | Stock " +  "</h4>";
+            output.innerHTML += "<h4>" + "----------------------" +  "</h4>";
+            let val =1;
+            data.books.forEach((book) => {
+                output.innerHTML += "<p>" + val + ". | " + book.title + " | " + book.stock + "</p>";
+                val+=1;
+            })
+
+        });
+    </script>
+</body>
+
+</html>
