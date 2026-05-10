@@ -1,0 +1,1 @@
+This is a pratice project where in I have used TypeScript to create a ToDo list manager.
